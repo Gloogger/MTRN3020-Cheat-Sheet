@@ -1,0 +1,187 @@
+% --------------------------------------------------------------- 
+% Style file for simple, two column conference papers.
+% Based on latex8.sty by Paolo.Ienne@di.epfl.ch 
+% --------------------------------------------------------------- 
+% Use with LaTeX2e as:
+%   \documentclass[times,10pt,twocolumn]{article} 
+%   \usepackage{simpleConference}
+%   \usepackage{times}
+% --------------------------------------------------------------- 
+% specify references as
+%   \bibliographystyle{simpleConference}
+%   \bibliography{...your files...}
+%
+% use Section{} and SubSection{} instead of standard section{} 
+%    and subsection{} to obtain headings in the form 
+%    "1.3. My heading"
+% ---------------------------------------------------------------
+% ten point helvetica bold required for captions
+% in some sites the name of the helvetica bold font may differ, 
+% change the name here:
+
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\familydefault}{\rmdefault}
+
+% set dimensions of columns, gap between columns, and paragraph indent 
+%\setlength{\textheight}{8.875in}
+%%\setlength{\textwidth}{17.7cm}
+\setlength{\columnsep}{0.51cm}
+%\setlength{\topmargin}{1.78cm}
+%\setlength{\headheight}{0.1cm}
+%\setlength{\headsep}{0in}
+%\setlength{\parindent}{1pc}
+%\setlength{\oddsidemargin}{-1.65cm}
+%\setlength{\evensidemargin}{1.65cm}
+
+% memento from size10.clo
+% \normalsize{\@setfontsize\normalsize\@xpt\@xiipt} 
+% \small{\@setfontsize\small\@ixpt{11}}
+% \footnotesize{\@setfontsize\footnotesize\@viiipt{9.5}} 
+% \scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+% \tiny{\@setfontsize\tiny\@vpt\@vipt}
+% \large{\@setfontsize\large\@xiipt{14}} 
+% \Large{\@setfontsize\Large\@xivpt{18}} 
+% \LARGE{\@setfontsize\LARGE\@xviipt{22}} 
+% \huge{\@setfontsize\huge\@xxpt{25}}
+% \Huge{\@setfontsize\Huge\@xxvpt{30}}
+
+\setlength{\intextsep}{12.0pt plus 2.0pt minus 2.0pt}
+
+\def\@maketitle
+   {
+   \newpage
+   %\null
+   %\vskip -.375in 
+   \vskip -.5in
+   \begin{center}
+      {\Large \bf \@title \par} 
+      % additional two empty lines at the end of the title 
+      \vspace*{3pt} 
+      {
+      \lineskip .5em
+      \begin{tabular}[t]{c}
+        \@author 
+      \end{tabular}
+      \par
+      } 
+      % additional small space at the end of the author name 
+      \vskip .5em 
+      {
+       \large 
+      \begin{tabular}[t]{c}
+          \@affiliation 
+      \end{tabular}
+      \par 
+      \ifx \@empty \@email
+      \else
+         \begin{tabular}{r@{~}l}
+            E-mail: & {\tt \@email}
+         \end{tabular}
+         \par
+      \fi
+      }
+      % additional empty line at the end of the title block 
+      \vspace*{12pt} 
+   \end{center}
+   } 
+
+\def\affiliation#1{\gdef\@affiliation{#1}} \gdef\@affiliation{}
+
+\def\email#1{\gdef\@email{#1}}
+\gdef\@email{}
+
+\newlength{\@ctmp}
+\newlength{\@figindent}
+\setlength{\@figindent}{1pc}
+
+\long\def\@makecaption#1#2{
+   \vskip 10pt
+   \setbox\@tempboxa\hbox{\tenhv\noindent #1.~#2} 
+   \setlength{\@ctmp}{\hsize}
+   \addtolength{\@ctmp}{-\@figindent}\addtolength{\@ctmp}{-\@figindent} 
+   % IF longer than one indented paragraph line
+   \ifdim \wd\@tempboxa >\@ctmp
+      % THEN set as an indented paragraph
+      \begin{list}{}{\leftmargin\@figindent \rightmargin\leftmargin} 
+         \item[]\tenhv #1.~#2\par
+      \end{list}
+   \else
+      % ELSE center
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil} 
+   \fi}
+
+% correct heading spacing and type
+\def\section{\@startsection{section}{1}{\z@}{1.5ex plus 1.5ex minus 0.5ex}%
+{0.7ex plus 1ex minus 0ex}{\normalfont\normalsize\centering\scshape}}%
+\def\subsection{\@startsection{subsection}{2}{\z@}{1.5ex plus 1.5ex minus 0.5ex}%
+{0.7ex plus .5ex minus 0ex}{\normalfont\normalsize\itshape}}%
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{1.5ex plus 1.5ex minus 0.5ex}%
+{0.7ex plus .5ex minus 0ex}{\normalfont\normalsize\itshape}}%
+
+
+
+
+%\newcommand\blfootnote[1]{%
+%%  \begingroup
+%  \renewcommand\thefootnote{}\footnote{#1}%
+%  \addtocounter{footnote}{-1}%
+%  \endgroup
+%}
+
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+
+
+\makeatletter
+\def\footnoterule{\kern-8\p@
+  \hrule \@width 0in \kern 20\p@} 
+\makeatother
+
+\renewcommand{\thesection}{\Roman{section}.} 
+\renewcommand{\thesubsection}{\Alph{subsection}.} 
+\renewcommand{\thesubsubsection}{\alph{subsection}.\arabic{subsubsection}.} 
+
+\renewcommand{\thetable}{\Roman{table}}
+\renewcommand{\refname}{{Refer\^{e}ncias}}
+
+%redefinindo as tabelas para serem centralizadas automaticamente
+\let\oldtable\table
+\let\oldendtable\endtable
+\renewenvironment{table}
+{\oldtable}
+{
+\centering
+\oldendtable
+}
+
+%redefinindo tabular para ser footnotesize
+\let\oldtabular\tabular
+\let\endoldtabular\endtabular
+\renewenvironment{tabular}
+{\footnotesize\oldtabular}
+{\endoldtabular}
+
+\renewenvironment{abstract}
+ {\small
+   \bfseries \textit{Abstract}---
+   }
+
+\newenvironment{resumo}
+ {\small
+   \bfseries \textit{Resumo}---
+   }
+
+\newenvironment{keywords}
+ {\small
+   \bfseries\textit{Index Terms}---
+ }
+
+\newenvironment{palavrasChaves}
+ {\small
+   \bfseries\textit{Palavras Chave}---
+ }
+
+% end of file inatel.sty
+% ---------------------------------------------------------------
