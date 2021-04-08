@@ -1,5 +1,9 @@
 \section{Week 5}
-\textbf{$\mathcal{Z}$-plane stability: z is real}
+\textbf{\large $\mathcal{Z}$-plane stability:}
+\vspace{0.4cm}
+
+
+\textbf{\underline{Case 1: z is real}}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/z_plane_stability.png}
@@ -20,9 +24,8 @@ $a < -1$ & transient term will ring and grow & unstable & Yes \\\hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
-\clearpage
 
-\textbf{$\mathcal{Z}$-plane stability: z is complex}
+\textbf{\underline{Case 2: z is complex}}
 \begin{table}[h]
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{|c|c|c|}
@@ -36,7 +39,11 @@ $r=0$ & disappear in one sample interval & stable \\\hline
 \end{adjustbox}
 \end{table}
 
-\textbf{Important Difference between s- and z-plane:} double poles on the unit circle (a ramp) is not stable!
+\textbf{\large Important Difference between s- and z-plane:} 
+\begin{itemize}
+    \item Double poles on the unit circle (a ramp) is not stable!
+    \item System stable in s-domain for all value of $K$ is NOT necessarily stable in z-domain for all $K$ for certain sampling time $T$. Example: Kahoot wk7 Q9.
+\end{itemize}
 
 \textbf{\large S-plane and z-plane mapping}
 \begin{equation*}
@@ -55,8 +62,10 @@ $r=0$ & disappear in one sample interval & stable \\\hline
 \end{figure}
 
 \textbf{\large Dominant poles in z-plane}: 
+\begin{itemize}
+    \item The poles closer to the unit circle are the dominant/slowest poles.
+\end{itemize}
 
-the poles closer to the unit circle are the dominant/slowest poles.
 
 \textbf{\large Steady state gains}
 \begin{itemize}
@@ -79,3 +88,17 @@ the poles closer to the unit circle are the dominant/slowest poles.
     \bm{H} &= \int_{0}^{T}\left(e^{\bm{A}\lambda} d\lambda\right) \bm{B} \\
     &= \bm{A}^{-1} (e^{\bm{A}T}- \bm{I})\bm{B}
 \end{align*}
+
+\textbf{From z-pole to $\bm{\omega_d}$:}
+
+\begin{enumerate}
+    \item Given that $z=a+j\, b$, $T$ is known,
+    \item From $z=e^{sT}$ we have $s=\frac{\ln(a+j\, b)}{T}=\sigma + j\, \omega_d$
+\end{enumerate}
+
+\textbf{From z-pole to 95\% $\bm{t_s}$:}
+\begin{enumerate}
+    \item $s = \frac{\ln(z)}{T} = \sigma + j\,\omega_d$ ,
+    \item $e^{\sigma \, t_s} = 1 - 0.95$,
+    \item $t_s = \frac{\ln(1-0.95)}{\sigma}\;$, ($t_s$ should be +ve).
+\end{enumerate}

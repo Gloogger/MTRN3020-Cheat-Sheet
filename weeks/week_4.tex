@@ -1,27 +1,40 @@
 \section{Week 4}
-\textbf{$\mathcal{Z}$-transform}
+\textbf{\large $\bm{\mathcal{Z}}$-transform}
+\begin{itemize}
+    \item $\bm{\mathcal{Z}\Longleftrightarrow\mathcal{S}}$
+    \begin{equation*}
+        z = e^{sT}
+    \end{equation*}
+    \item $\bm{\mathcal{Z}\Longleftrightarrow\;}$\textbf{discrete time} by hand (and tables)
+    \begin{align*}
+        y(k+2) + y(k+1) + y(k) - y(k-1) &= u(k) \\
+        \xrightarrow{\mathcal{Z}} z^2 Y(z) + zY(z) + Y(z) - z^{-1} Y(z) &= U(z)
+    \end{align*}
+    \item $\bm{\mathcal{Z}\Longleftrightarrow\;}$\textbf{discrete time} by almighty \textbf{Wolfram Alpha}: 
+    
+    Type \textit{"inverse Z transform calculator"} 
+    
+    or \textit{"Z transform calculator"} in the search bar.
+\end{itemize}
 
-\begin{equation*}
-    z = e^{sT}
-\end{equation*}
-\begin{align*}
-        y(k+1) + y(k) - y(k-1) &= u(k) \\
-        \xrightarrow{\mathcal{Z}} zY(z) + Y(z) - z^{-1} Y(z) &= U(z)
-\end{align*}
 
-\textbf{Transfer function of ZOH}
+
+
+
+
+\textbf{\large Transfer function of ZOH}
 \begin{equation*}
     G_{ZOH}(s) = \frac{1-e^{-sT}}{s} 
 \end{equation*}
 
-\textbf{Transfer function of ZOH and Analogy System (ZAS)}
+\textbf{\large TF of ZOH + Analogy System (ZAS)}
 \begin{align*}
     G_{ZAS}(z) &= \mathcal{Z}\left\{\frac{1-e^{-sT}}{s}G_{p}(s)\right\} \\
     &=  (1-z^{-1})\mathcal{Z}\left\{\frac{G_p (s)}{s}\right\} \\
     &= \frac{z-1}{z} \mathcal{Z}\left\{\frac{G_p (s)}{s}\right\}
 \end{align*}
 
-\textbf{Trick for finding inverse $\mathcal{Z}$-transform}
+\textbf{\large Trick for finding inverse $\mathcal{Z}$-transform}
 
 Divide the expression by z first, then find inverse using tables.
 
@@ -34,9 +47,10 @@ Example:
     &= 2 - 0.5^{k}
 \end{align*}
 
-\textbf{Associativity of Continuous Transfer Functions}
+\textbf{\large Associativity of Continuous Transfer Functions}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/associativity.png}
 \end{figure}
 Be careful: only distribute the * sign among addition/subtraction!
+
