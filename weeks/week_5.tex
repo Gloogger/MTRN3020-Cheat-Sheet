@@ -45,20 +45,43 @@ $r=0$ & disappear in one sample interval & stable \\\hline
     \item System stable in s-domain for all value of $K$ is NOT necessarily stable in z-domain for all $K$ for certain sampling time $T$. Example: Kahoot wk7 Q9.
 \end{itemize}
 
-\textbf{\large S-plane and z-plane mapping}
+\textbf{\large $\mathcal{S}$-plane and $\mathcal{Z}$-plane Mapping}
 \begin{equation*}
-    s=\sigma + j\omega \xrightarrow{z=e^{Ts}} z = e^{Ts}e^{j(T\omega + 2 \pi)}
+    s= e^{Ts} = e^{T(\sigma + j \omega)} = e^{T\omega} e^{T j\omega} = r e^{T j\omega}
 \end{equation*}
+N.B. not sure if $T$ should be included, since $T$ does not influence the plots in both s-domain and z-domain.
 \begin{align*}
-    s &= s+ j \omega_d \begin{cases}
-    \sigma = \frac{\ln(r)}{T} \\
-    \omega_d = \frac{\theta}{T}
+    s &= \sigma + j \omega_d \; \begin{cases}
+    \sigma = \frac{\ln(r)}{T}\; , & |z| = r = e^{\sigma} \\
+    \omega_d = \frac{\theta}{T} \; , & \angle z = \omega_d 
     \end{cases} \\
     C_0 &= -\frac{\sigma}{\omega} = - \frac{\ln(r)}{\theta} = -\sqrt{\frac{\zeta}{1-\zeta^2}} 
 \end{align*}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/s_z_mapping.png}
+\end{figure}
+
+\textbf{\underline{Critical Points:}}
+\begin{itemize}
+    \item Origin $s=0$ mapped to $z=e^0 = 1$ (real axis);
+    \item Constant settling time / vertical line / $Re(s)=\sigma$ mapped to a circle $|z|=e^{\sigma}$ centered at origin:
+    \begin{itemize}
+        \item Line $Re(s)=-\infty$ mapped as the origin since $|z|=e^{-\infty}=0$;
+        \item Im axis $Re(s)=0$ mapped as the unit circle since $|z|=e^0=1$;
+        \item Line $Re(s)=\infty$ mapped as the circle of infinite radius since $|z|=e^{\infty}=\infty$.
+    \end{itemize}
+    \item Constant frequency line / horizontal line / $Im(s)=j\omega_d$ mapped as a ray starting from the origin with angle $\angle \omega_d$ ;
+    \item The range $\omega_d \in (-\infty, \infty)$ is mapped to a finite range $\omega_d \in [0, 2\pi]$.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/Mapping_sumary_1.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/Mapping_sumary_2.png}
 \end{figure}
 
 \textbf{\large Dominant poles in z-plane}: 
