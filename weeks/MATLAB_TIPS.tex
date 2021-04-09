@@ -100,6 +100,34 @@ den = [1 6 8];
 >> k = []        
 \end{lstlisting}
 
+\textbf{\underline{Convert to Discrete State Space Model:}}
+\begin{equation*}
+    \begin{cases}
+     \dot{x}(t) = \bm{A}x(t) + \bm{B}u(t) \\
+     y(t) = \bm{C}x(t)+\bm{D} u(t)
+    \end{cases}, \; \begin{cases}
+     x(k+1) = \bm{G}x(k) + \bm{H}u(k) \\
+     y(kT) = \bm{C}x(kT) + \bm{D}u(kT)
+    \end{cases}
+\end{equation*}
+\begin{align*}
+    \text{where } \bm{G} &= e^{\bm{A}T} \\
+    \bm{H} &= \int_{0}^{T}\left(e^{\bm{A}\lambda} d\lambda\right) \bm{B} \\
+    &= \bm{A}^{-1} (e^{\bm{A}T}- \bm{I})\bm{B}
+\end{align*}
+\begin{lstlisting}
+% assume A, B, C, D, T are defined
+G = expm(A.*T);
+H = inv(A) * ( expm(A.*T) - eye(2)) *B
+\end{lstlisting}
+
+\textbf{\underline{Obtain K value from Root Locus Plot:}}
+\vspace{0.3cm}
+\begin{lstlisting}
+% assume sys is defined
+rlocus(sys);
+rlocfind(sys); % and then click on graph
+\end{lstlisting}
 
 \textbf{\underline{Transformation Summary}}
 \begin{figure}[h]
