@@ -1,0 +1,99 @@
+\section{Week 10}
+\begin{center}
+    \textbf{\Large \underline{Observers}}
+\end{center}
+The following exemplar system will be used in the upcoming notes.
+\begin{align*}
+    \text{continuous} &\begin{cases}
+        \dot{x}(t) = A x(t) + B u(t) \\
+        y(t) = C x(t) 
+    \end{cases} \\
+    \text{discrete} &\begin{cases}
+        x(k+1) = G x(k) + H u(k) \\
+        y(k) = C x(k)
+    \end{cases} \\
+    T &= \text{sampling time}
+\end{align*}
+\textbf{\large \underline{Prediction Observers}}
+\begin{itemize}
+    \item State feedback controller:
+    \begin{align*}
+        u(k)&=-Kx \\
+        \textbf{CE:} \; \; \left|zI-(G-HK)\right|\cdot X(z)&=0
+    \end{align*}
+    \item Estimator Equations:
+    \begin{align*}
+        &\begin{cases}
+            \hat{x}(k+1) = G \hat{x}(k)+H u(k) \\
+            \hat{y}(k) = C \hat{x}(k)
+        \end{cases} \\
+        &\begin{cases}
+            \Tilde{x}(k) = x(k) - \hat{x}(k) \\
+            \Tilde{y}(k) = y(k) - \hat{y}(k) = C \Tilde{x}(k)
+        \end{cases}
+    \end{align*}
+    \item Error Dynamics:
+    \begin{align*}
+        e(k) &= \Tilde{x}(k) \\
+        e(k+1) &= G e(k) - L[ \Tilde{y}(k)] \\
+        &= Ge(k)-L[C\Tilde{x}(k)] \\
+        &= [G-LC]e(k) 
+    \end{align*}
+    \item Characteristic Equation of Error Dynamics:
+    \begin{align*}
+        \textbf{CE:}\;\; \left|zI-(G-LC)\right|\cdot E(z)&=0
+    \end{align*}
+    \begin{itemize}
+        \item \textbf{Remark:} note that
+        \begin{align*}
+            (G-LC) &= (G-LC)^{T} \\
+            &= G^T - C^T L^T
+        \end{align*}
+        The above relation is important when using the MATLAB 'acker()' or 'place()' command.
+    \end{itemize}
+    \item \textbf{Example 1.1:} The state feedback controller is designed to satisfy the continuous time CE $(s+10)^2=0$. Find gain matrix $K$.
+\begin{lstlisting}
+% root of feedback controller CE
+s_fb = -10;
+poles = [s_c, s_c];
+% place(A,B,poles) does not accept repeated roots
+% so we use acker() here
+K = acker(G,H,poles)
+\end{lstlisting}
+    \item \textbf{Example 1.2:} The speed of response of the observer must be 5 times faster than that of the feedback controller. Find gain matrix $L$.
+\begin{lstlisting}
+s_fb = -10;
+s_ob = 5 * s_fb;
+poles = [s_ob, s_ob];
+% Recall the remark on transpose made above!
+L = acker(G', C', poles)'
+\end{lstlisting}
+\end{itemize}
+
+
+\textbf{\large \underline{Current Observers}}
+\begin{itemize}
+    \item Error Dynamics:
+    \begin{align*}
+        e(k+1) &= G e(k) - L\color{red} [\Tilde{y}(k+1)] \\
+        &= Ge(k)-L\color{red}[C\Tilde{x}(k+1)] \\
+        &= Ge(k)-LC[ \underbrace{Gx(k)+\cancel{Hu(k)}}_{x(k+1)}-\underbrace{G\hat{x}(k)-\cancel{Hu(k)}}_{\hat{x}(k+1)}]\\
+        &= Ge(k)-LCG\Tilde{x}(k) \\
+        &= Ge(k)-LCGe(k) \\
+        &= [G-LCG]e(k)
+    \end{align*}
+    \item Characteristic Equation of Error Dynamics:
+    \begin{align*}
+        \textbf{CE:}\;\; \left|zI-(G-LCG)\right|\cdot E(z)&=0
+    \end{align*}
+    \item \textbf{Remark:} note that
+    \begin{align*}
+        (G-LCG) &= (G-LCG)^T \\
+        &= G^T - G^T C^T L^T
+    \end{align*}
+    \item \textbf{Example 1.3:} The speed of response of the observer must be 5 times faster than that of the feedback controller. Find gain matrix $L$.
+\begin{lstlisting}
+% Recall the remark on transpose made above!
+L = acker(G', G'*C', poles)'
+\end{lstlisting}
+\end{itemize}

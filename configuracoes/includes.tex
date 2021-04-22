@@ -15,12 +15,18 @@ headsep=0cm,
 % initialize math tools
 \usepackage{bm}
 \usepackage{amsmath}
+% sinc
+\DeclareMathOperator{\sinc}{sinc}
 \usepackage{cancel}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{empheq}
 \usepackage{arydshln}
 \usepackage{steinmetz}
+% define equal
+\newcommand\eqdef{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+% multirow in Tables
+\usepackage{multirow}
 % change title size
 \usepackage{titlesec}
 \titleformat*{\section}{\centering\huge}
